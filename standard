@@ -187,7 +187,7 @@ if next(notifiedSpecialItems) == nil then
     local Plr = Players.LocalPlayer
     require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("Confirm")
     
-wait(15) --use again if there are frozen
+wait(20) --use again if there are frozen
     repeat wait() until game:GetService("Workspace").mrkoonmtv:FindFirstChild("Azure Orb")
     wait(2)
     game:GetService("Workspace").mrkoonmtv["Azure Orb"].RemoteEvent:FireServer()
