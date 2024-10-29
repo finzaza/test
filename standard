@@ -158,7 +158,7 @@ if game.PlaceId == 10228957718 then
 
     -- Cooldown variable for Azure Orb
     local cooldownActive = false
-    local cooldownTime = 10 -- Cooldown time in seconds
+    local cooldownTime = 15 -- Cooldown time in seconds
 
     -- Function to use the Azure Orb with cooldown
     local function useAzureOrb()
