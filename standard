@@ -187,7 +187,7 @@ if next(notifiedSpecialItems) == nil then
     local Players = game:GetService("Players")
     local Plr = Players.LocalPlayer
     require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("Confirm")
-wait(20) -- add a dely
+wait(40) -- add a dely
 until game:GetService("Workspace").mrkoonmtv:FindFirstChild("Azure Orb") == nil
 end
 end
