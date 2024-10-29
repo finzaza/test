@@ -1,195 +1,199 @@
 repeat wait() until game:IsLoaded()
 if game.PlaceId == 10228957718 then
-    wait(5)
+wait(5)
 
-    -- Equip Equinox Slicer
-    repeat wait() until game.Players.LocalPlayer.Backpack:FindFirstChild("Equinox Slicer")
-    if game.Players.LocalPlayer.Backpack:FindFirstChild("Equinox Slicer") then
-        for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-            if v.Name == "Equinox Slicer" then
-                v.Parent = game.Players.LocalPlayer.Character
-            end
-        end
-    end
+--equip
+repeat wait() until game.Players.LocalPlayer.Backpack:FindFirstChild("Equinox Slicer")
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Equinox Slicer") then
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v.name == "Equinox Slicer" then
+v.Parent = game.Players.LocalPlayer.Character
+end
+end
+end
 
-    -- Anti AFK
-    for i, v in next, getconnections(game:GetService("Players").LocalPlayer.Idled) do
-        v:Disable();
-    end
-    print("Anti AFK enabled")
+--anti afk
+for i, v in next, getconnections(game:GetService("Players").LocalPlayer.Idled) do
+v:Disable();
+end;
+print("anti afk enabled")
 
-    -- Vote
-    wait(1)
-    local Players = game:GetService("Players")
-    local Plr = Players.LocalPlayer
+--vote
+wait(1)
+local Players = game:GetService("Players");
+local Plr = Players.LocalPlayer;
 
-    require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("/skipall")
-    wait(5)
-    local args = { [1] = "Standard" }
-    game:GetService("ReplicatedStorage"):WaitForChild("VoteRemote"):InvokeServer(unpack(args))
-    wait(0.5)
+require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("/skipall");
+wait(5)
+local args = {
+    [1] = "Standard"
+}
 
-    -- Main stuff
-    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-950000.23584, 950000.05774, -1651.85693))
-    wait()
-    local NewPart = Instance.new("Part")
-    NewPart.Parent = Workspace
-    NewPart.Size = Vector3.new(1000, 1000.1000, 1000)
-    NewPart.BrickColor = BrickColor.new("Blue")
-    NewPart.Anchored = true
-    NewPart.CFrame = game:GetService("Workspace").mrkoonmtv["Right Leg"].CFrame
-    wait()
+game:GetService("ReplicatedStorage"):WaitForChild("VoteRemote"):InvokeServer(unpack(args))
+wait(0.5)
 
-    -- Wait for the Rain Shop to spawn
-    repeat wait() until game:GetService("Workspace"):FindFirstChild("TravellingMerchantRainSummer")
-    repeat wait() until game:GetService("Workspace").TravellingMerchantRainSummer:FindFirstChild("HumanoidRootPart")
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.TravellingMerchantRainSummer.HumanoidRootPart.CFrame
-    wait(2)
-    repeat wait() until workspace.TravellingMerchantRainSummer.Head:FindFirstChild("DialoguePrompt")
-    wait(1)
-    local proximityPrompt = workspace.TravellingMerchantRainSummer.Head.DialoguePrompt
-    fireproximityprompt(proximityPrompt, 1, true)
+--main stuff
+game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-950000.23584, 950000.05774, -1651.85693))
+wait()
+NewPart = Instance.new("Part")
+NewPart.Parent = Workspace
+NewPart.Size = Vector3.new(1000, 1000.1000, 1000)
+NewPart.BrickColor = BrickColor.new("Blue")
+NewPart.Anchored = true
+NewPart.CFrame = game:GetService("Workspace").mrkoonmtv["Right Leg"].CFrame
+wait()
 
-    -- Destroy Equinox Slicer
-    game:GetService("Players").LocalPlayer.Character:FindFirstChild("Equinox Slicer"):Destroy()
+--rain shop spawned
+--rain stuff
+repeat wait() until game:GetService("Workspace"):FindFirstChild("TravellingMerchantRainSummer")
+repeat wait() until game:GetService("Workspace").TravellingMerchantRainSummer:FindFirstChild("HumanoidRootPart")
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.TravellingMerchantRainSummer.HumanoidRootPart.CFrame
+wait(2)
+repeat wait() until workspace.TravellingMerchantRainSummer.Head:FindFirstChild("DialoguePrompt")
+wait(1)
+local proximityPrompt = workspace.TravellingMerchantRainSummer.Head.DialoguePrompt
+fireproximityprompt(proximityPrompt, 1, true)
 
-    -- Wait for shop popup
-    repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("TravellingMerchantShop")
-    repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui.TravellingMerchantShop.background:FindFirstChild("slot")
+--destory item
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("Equinox Slicer"):Destroy()
 
-    -- Gather item information
-    local url = "https://discord.com/api/webhooks/1298582698842914838/hJNY1WN9szmfdN7S1WpI9v0ZB-F1tYs_sbGTo9ACVhQ6jzExnbLOB0cjVOXu2LUsKAso"
-    local players = game:GetService("Players")
-    local itemFields = {}
-    local specialItems = {
-        ["Time Piercer"] = true,
-        ["Arbitration"] = true,
+--wait for shop pop up
+repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("TravellingMerchantShop")
+repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui.TravellingMerchantShop.background:FindFirstChild("slot")
+
+-- Gather item information (specific items)
+-- Sending webhook
+local url = "https://discord.com/api/webhooks/1298582698842914838/hJNY1WN9szmfdN7S1WpI9v0ZB-F1tYs_sbGTo9ACVhQ6jzExnbLOB0cjVOXu2LUsKAso" -- webhook URL
+local players = game:GetService("Players")
+local itemFields = {} -- Initialize an empty table for item fields
+local specialItems = {
+    ["Time Piercer"] = true,
+    ["Arbitration"] = true,
+}
+local notifiedSpecialItems = {} -- Track notified special items
+local itemImages = {
+    ["Time Piercer"] = "https://static.wikia.nocookie.net/bcwo-roblox/images/c/c5/Time_Piercer.png/revision/latest?cb=20230825235133",
+    ["Arbitration"] = "https://static.wikia.nocookie.net/bcwo-roblox/images/c/c5/Time_Piercer.png/revision/latest?cb=20230825235133",
+}
+
+-- Function to send the webhook using custom request method
+local function sendWebhook(data)
+    local HttpService = game:GetService("HttpService")
+    local newdata = HttpService:JSONEncode(data)
+    local headers = {
+        ["content-type"] = "application/json"
     }
-    local notifiedSpecialItems = {}
-    local itemImages = {
-        ["Time Piercer"] = "https://static.wikia.nocookie.net/bcwo-roblox/images/c/c5/Time_Piercer.png/revision/latest?cb=20230825235133",
-        ["Arbitration"] = "https://static.wikia.nocookie.net/bcwo-roblox/images/c/c5/Time_Piercer.png/revision/latest?cb=20230825235133",
-    }
 
-    -- Function to send the webhook
-    local function sendWebhook(data)
-        local HttpService = game:GetService("HttpService")
-        local newdata = HttpService:JSONEncode(data)
-        local headers = { ["content-type"] = "application/json" }
-        local request = http_request or request or HttpPost or syn.request
-        local fulldata = { Url = url, Body = newdata, Method = "POST", Headers = headers }
+    local request = http_request or request or HttpPost or syn.request
+    local fulldata = {Url = url, Body = newdata, Method = "POST", Headers = headers}
 
-        local success, response = pcall(function()
-            return request(fulldata)
-        end)
+    -- Try to send the request and catch errors
+    local success, response = pcall(function()
+        return request(fulldata)
+    end)
 
-        if not success then
-            warn("Failed to send webhook: " .. tostring(response))
-        else
-            print("Webhook sent successfully!")
-        end
+    if not success then
+        warn("Failed to send webhook: " .. tostring(response))
+    else
+        print("Webhook sent successfully!")
     end
+end
 
-    -- Loop through the merchant shop items
-    for _, descendant in ipairs(players.LocalPlayer.PlayerGui.TravellingMerchantShop:GetDescendants()) do
-        local slot = descendant:FindFirstChild("slot")
-        if slot and slot:IsA("TextButton") then
-            local itemName = slot.Text
+-- Loop through the merchant shop items
+for _, descendant in ipairs(players.LocalPlayer.PlayerGui.TravellingMerchantShop:GetDescendants()) do
+    local slot = descendant:FindFirstChild("slot")
+    if slot and slot:IsA("TextButton") then
+        local itemName = slot.Text
 
-            table.insert(itemFields, {
-                ["name"] = itemName,
-                ["value"] = itemName .. " is available!",
-                ["inline"] = false,
-                ["image"] = { ["url"] = itemImages[itemName] or "" }
-            })
+        -- Add all items to the notification list
+        table.insert(itemFields, {
+            ["name"] = itemName,
+            ["value"] = itemName .. " is available!",
+            ["inline"] = false,
+            ["image"] = { ["url"] = itemImages[itemName] or "" } -- Safeguard for image URL
+        })
 
-            for specialItemName in pairs(specialItems) do
-                if itemName:find(specialItemName) and not notifiedSpecialItems[specialItemName] then
-                    local specialData = {
-                        ["content"] = "@everyone",
-                        ["username"] = "Rain notify",
-                        ["avatar_url"] = "https://cdn.discordapp.com/attachments/1129677331515060384/1129679253798129704/285701869_3698622860261360_2635765401078588719_n.png",
-                        ["embeds"] = {
-                            {
-                                ["title"] = specialItemName .. " Available!",
-                                ["description"] = specialItemName .. " is now available in the shop!",
-                                ["type"] = "rich",
-                                ["color"] = tonumber(0xff0000),
-                                ["fields"] = {
-                                    {
-                                        ["name"] = specialItemName,
-                                        ["value"] = specialItemName .. " is available!",
-                                        ["inline"] = false,
-                                        ["image"] = { ["url"] = itemImages[specialItemName] or "" }
-                                    }
+        -- Check for special items and notify if not already notified
+        for specialItemName in pairs(specialItems) do
+            if itemName:find(specialItemName) and not notifiedSpecialItems[specialItemName] then
+                -- Prepare data for special item notification
+                local specialData = {
+                    ["content"] = "@everyone", -- This will ping everyone
+                    ["username"] = "Rain notify",
+                    ["avatar_url"] = "https://cdn.discordapp.com/attachments/1129677331515060384/1129679253798129704/285701869_3698622860261360_2635765401078588719_n.png",
+                    ["embeds"] = {
+                        {
+                            ["title"] = specialItemName .. " Available!",
+                            ["description"] = specialItemName .. " is now available in the shop!",
+                            ["type"] = "rich",
+                            ["color"] = tonumber(0xff0000),
+                            ["fields"] = {
+                                {
+                                    ["name"] = specialItemName,
+                                    ["value"] = specialItemName .. " is available!",
+                                    ["inline"] = false,
+                                    ["image"] = { ["url"] = itemImages[specialItemName] or "" } -- Safeguard for image URL
                                 }
                             }
                         }
                     }
-                    sendWebhook(specialData)
-                    notifiedSpecialItems[specialItemName] = true
-                end
+                }
+                sendWebhook(specialData) -- Send a notification for the special item
+                notifiedSpecialItems[specialItemName] = true -- Mark as notified
             end
         end
     end
+end
 
-    local data = {
-        ["username"] = "Rain notify",
-        ["avatar_url"] = "https://cdn.discordapp.com/attachments/1129677331515060384/1129679253798129704/285701869_3698622860261360_2635765401078588719_n.png",
-        ["embeds"] = {
-            {
-                ["title"] = "Item Availability Notification",
-                ["description"] = "Available items:",
-                ["type"] = "rich",
-                ["color"] = tonumber(0xff0000),
-                ["fields"] = itemFields,
-                ["image"] = {
-                    ["url"] = "https://static.wikia.nocookie.net/bcwo-roblox/images/5/5c/Travellingmerchant.png/revision/latest?cb=20230723035707"
-                }
+-- Prepare the webhook data for all items
+local data = {
+    ["username"] = "Rain notify",
+    ["avatar_url"] = "https://cdn.discordapp.com/attachments/1129677331515060384/1129679253798129704/285701869_3698622860261360_2635765401078588719_n.png",
+    ["embeds"] = {
+        {
+            ["title"] = "Item Availability Notification",
+            ["description"] = "Available items:",
+            ["type"] = "rich",
+            ["color"] = tonumber(0xff0000),
+            ["fields"] = itemFields,
+            ["image"] = {
+                ["url"] = "https://static.wikia.nocookie.net/bcwo-roblox/images/5/5c/Travellingmerchant.png/revision/latest?cb=20230723035707"
             }
         }
     }
+}
 
-    if #itemFields > 0 then
-        sendWebhook(data)
-    else
-        print("No items available to notify.")
-    end
+-- Check if there are any items to notify about
+if #itemFields > 0 then
+    sendWebhook(data) -- Send notification for all items
+else
+    print("No items available to notify.")
+end
 
-    -- Cooldown variable for Azure Orb
-    local cooldownActive = false
-    local cooldownTime = 15 -- Cooldown time in seconds
-
-    -- Function to use the Azure Orb with cooldown
-    local function useAzureOrb()
-        if not cooldownActive then
-            cooldownActive = true
-
-            repeat wait() until game.Players.LocalPlayer.Backpack:FindFirstChild("Azure Orb")
-            for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                if v.Name == "Azure Orb" then
-                    v.Parent = game.Players.LocalPlayer.Character
-                end
-            end
-            
-            wait(1.5)
-            repeat wait() until game:GetService("Workspace").mrkoonmtv:FindFirstChild("Azure Orb")
-            wait(2)
-            game:GetService("Workspace").mrkoonmtv["Azure Orb"].RemoteEvent:FireServer()
-            
-            wait(cooldownTime) -- Wait for cooldown
-            cooldownActive = false
-        else
-            print("Azure Orb is on cooldown. Please wait.")
+-- Run the additional script if no special items were found
+if next(notifiedSpecialItems) == nil then
+    repeat wait() until players.LocalPlayer.Backpack:FindFirstChild("Azure Orb")
+    for i, v in pairs(players.LocalPlayer.Backpack:GetChildren()) do
+        if v.Name == "Azure Orb" then
+            v.Parent = players.LocalPlayer.Character
         end
     end
-
-    -- Run the Azure Orb function if no special items were found
-    if next(notifiedSpecialItems) == nil then
-        useAzureOrb()
-        -- Confirm action in chat
-        wait(1.5)
-        local Plr = Players.LocalPlayer
-        require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("Confirm")
-    end
+    wait(1.5)
+    repeat wait() until game:GetService("Workspace").mrkoonmtv:FindFirstChild("Azure Orb")
+    wait(2)
+    game:GetService("Workspace").mrkoonmtv["Azure Orb"].RemoteEvent:FireServer()
+    wait(1.5)
+    local Players = game:GetService("Players")
+    local Plr = Players.LocalPlayer
+    require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("Confirm")
+    
+wait(15) --use again if there are frozen
+    repeat wait() until game:GetService("Workspace").mrkoonmtv:FindFirstChild("Azure Orb")
+    wait(2)
+    game:GetService("Workspace").mrkoonmtv["Azure Orb"].RemoteEvent:FireServer()
+    wait(1.5)
+    local Players = game:GetService("Players")
+    local Plr = Players.LocalPlayer
+    require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("Confirm")
+end
 end
