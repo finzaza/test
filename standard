@@ -179,6 +179,7 @@ if next(notifiedSpecialItems) == nil then
         end
     end
     wait(1.5)
+    repeat
     repeat wait() until game:GetService("Workspace").mrkoonmtv:FindFirstChild("Azure Orb")
     wait(2)
     game:GetService("Workspace").mrkoonmtv["Azure Orb"].RemoteEvent:FireServer()
@@ -186,14 +187,7 @@ if next(notifiedSpecialItems) == nil then
     local Players = game:GetService("Players")
     local Plr = Players.LocalPlayer
     require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("Confirm")
-    
-wait(20) --use again if there are frozen
-    repeat wait() until game:GetService("Workspace").mrkoonmtv:FindFirstChild("Azure Orb")
-    wait(2)
-    game:GetService("Workspace").mrkoonmtv["Azure Orb"].RemoteEvent:FireServer()
-    wait(1.5)
-    local Players = game:GetService("Players")
-    local Plr = Players.LocalPlayer
-    require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("Confirm")
+wait(20) -- add a dely
+until game:GetService("Workspace").mrkoonmtv:FindFirstChild("Azure Orb") == nil
 end
 end
