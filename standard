@@ -60,6 +60,7 @@ game:GetService("Players").LocalPlayer.Character:FindFirstChild("Equinox Slicer"
 --wait for shop pop up
 repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("TravellingMerchantShop")
 repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui.TravellingMerchantShop.background:FindFirstChild("slot")
+wait(1.5)
 
 -- Gather item information (specific items)
 -- Sending webhook
