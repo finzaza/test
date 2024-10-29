@@ -2,10 +2,10 @@ repeat wait() until game:IsLoaded()
 if game.PlaceId == 10228957718 then
     wait(5)
 
-    -- Equip
+    -- Equip Equinox Slicer
     repeat wait() until game.Players.LocalPlayer.Backpack:FindFirstChild("Equinox Slicer")
     if game.Players.LocalPlayer.Backpack:FindFirstChild("Equinox Slicer") then
-        for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
             if v.Name == "Equinox Slicer" then
                 v.Parent = game.Players.LocalPlayer.Character
             end
@@ -20,22 +20,19 @@ if game.PlaceId == 10228957718 then
 
     -- Vote
     wait(1)
-    local Players = game:GetService("Players");
-    local Plr = Players.LocalPlayer;
+    local Players = game:GetService("Players")
+    local Plr = Players.LocalPlayer
 
-    require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("/skipall");
+    require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("/skipall")
     wait(5)
-    local args = {
-        [1] = "Standard"
-    }
-
+    local args = { [1] = "Standard" }
     game:GetService("ReplicatedStorage"):WaitForChild("VoteRemote"):InvokeServer(unpack(args))
     wait(0.5)
 
     -- Main stuff
     game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-950000.23584, 950000.05774, -1651.85693))
     wait()
-    NewPart = Instance.new("Part")
+    local NewPart = Instance.new("Part")
     NewPart.Parent = Workspace
     NewPart.Size = Vector3.new(1000, 1000.1000, 1000)
     NewPart.BrickColor = BrickColor.new("Blue")
@@ -43,8 +40,7 @@ if game.PlaceId == 10228957718 then
     NewPart.CFrame = game:GetService("Workspace").mrkoonmtv["Right Leg"].CFrame
     wait()
 
-    -- Rain shop spawned
-    -- Rain stuff
+    -- Wait for the Rain Shop to spawn
     repeat wait() until game:GetService("Workspace"):FindFirstChild("TravellingMerchantRainSummer")
     repeat wait() until game:GetService("Workspace").TravellingMerchantRainSummer:FindFirstChild("HumanoidRootPart")
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.TravellingMerchantRainSummer.HumanoidRootPart.CFrame
@@ -54,16 +50,15 @@ if game.PlaceId == 10228957718 then
     local proximityPrompt = workspace.TravellingMerchantRainSummer.Head.DialoguePrompt
     fireproximityprompt(proximityPrompt, 1, true)
 
-    -- Destroy item
+    -- Destroy Equinox Slicer
     game:GetService("Players").LocalPlayer.Character:FindFirstChild("Equinox Slicer"):Destroy()
 
-    -- Wait for shop pop up
+    -- Wait for shop popup
     repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("TravellingMerchantShop")
     repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui.TravellingMerchantShop.background:FindFirstChild("slot")
 
-    -- Gather item information (specific items)
-    -- Sending webhook
-    local url = "https://discord.com/api/webhooks/1298582698842914838/hJNY1WN9szmfdN7S1WpI9v0ZB-F1tYs_sbGTo9ACVhQ6jzExnbLOB0cjVOXu2LUsKAso" -- webhook URL
+    -- Gather item information
+    local url = "https://discord.com/api/webhooks/1298582698842914838/hJNY1WN9szmfdN7S1WpI9v0ZB-F1tYs_sbGTo9ACVhQ6jzExnbLOB0cjVOXu2LUsKAso"
     local players = game:GetService("Players")
     local itemFields = {}
     local specialItems = {
@@ -76,18 +71,14 @@ if game.PlaceId == 10228957718 then
         ["Arbitration"] = "https://static.wikia.nocookie.net/bcwo-roblox/images/c/c5/Time_Piercer.png/revision/latest?cb=20230825235133",
     }
 
-    -- Function to send the webhook using custom request method
+    -- Function to send the webhook
     local function sendWebhook(data)
         local HttpService = game:GetService("HttpService")
         local newdata = HttpService:JSONEncode(data)
-        local headers = {
-            ["content-type"] = "application/json"
-        }
-
+        local headers = { ["content-type"] = "application/json" }
         local request = http_request or request or HttpPost or syn.request
-        local fulldata = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+        local fulldata = { Url = url, Body = newdata, Method = "POST", Headers = headers }
 
-        -- Try to send the request and catch errors
         local success, response = pcall(function()
             return request(fulldata)
         end)
@@ -105,7 +96,6 @@ if game.PlaceId == 10228957718 then
         if slot and slot:IsA("TextButton") then
             local itemName = slot.Text
 
-            -- Add all items to the notification list
             table.insert(itemFields, {
                 ["name"] = itemName,
                 ["value"] = itemName .. " is available!",
@@ -113,10 +103,8 @@ if game.PlaceId == 10228957718 then
                 ["image"] = { ["url"] = itemImages[itemName] or "" }
             })
 
-            -- Check for special items and notify if not already notified
             for specialItemName in pairs(specialItems) do
                 if itemName:find(specialItemName) and not notifiedSpecialItems[specialItemName] then
-                    -- Prepare data for special item notification
                     local specialData = {
                         ["content"] = "@everyone",
                         ["username"] = "Rain notify",
@@ -145,7 +133,6 @@ if game.PlaceId == 10228957718 then
         end
     end
 
-    -- Prepare the webhook data for all items
     local data = {
         ["username"] = "Rain notify",
         ["avatar_url"] = "https://cdn.discordapp.com/attachments/1129677331515060384/1129679253798129704/285701869_3698622860261360_2635765401078588719_n.png",
@@ -163,43 +150,46 @@ if game.PlaceId == 10228957718 then
         }
     }
 
-    -- Check if there are any items to notify about
     if #itemFields > 0 then
         sendWebhook(data)
     else
         print("No items available to notify.")
     end
 
-    -- Variables for Azure Orb cooldown
-    local orbCooldown = 0
-    local cooldownTime = 60 -- Cooldown time in seconds
+    -- Cooldown variable for Azure Orb
+    local cooldownActive = false
+    local cooldownTime = 10 -- Cooldown time in seconds
 
-    -- Run the additional script if no special items were found
-    if next(notifiedSpecialItems) == nil then
-        repeat wait() until players.LocalPlayer.Backpack:FindFirstChild("Azure Orb")
-        
-        -- Check if the orb can be used
-        if os.clock() >= orbCooldown then
-            for i, v in pairs(players.LocalPlayer.Backpack:GetChildren()) do
+    -- Function to use the Azure Orb with cooldown
+    local function useAzureOrb()
+        if not cooldownActive then
+            cooldownActive = true
+
+            repeat wait() until game.Players.LocalPlayer.Backpack:FindFirstChild("Azure Orb")
+            for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                 if v.Name == "Azure Orb" then
-                    v.Parent = players.LocalPlayer.Character
+                    v.Parent = game.Players.LocalPlayer.Character
                 end
             end
+            
             wait(1.5)
             repeat wait() until game:GetService("Workspace").mrkoonmtv:FindFirstChild("Azure Orb")
             wait(2)
-
-            -- Activate the Azure Orb
             game:GetService("Workspace").mrkoonmtv["Azure Orb"].RemoteEvent:FireServer()
             
-            -- Set the cooldown timer
-            orbCooldown = os.clock() + cooldownTime
-            wait(1.5)
-            local Players = game:GetService("Players")
-            local Plr = Players.LocalPlayer
-            require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("Confirm")
+            wait(cooldownTime) -- Wait for cooldown
+            cooldownActive = false
         else
-            print("Azure Orb is on cooldown. Please wait before using it again.")
+            print("Azure Orb is on cooldown. Please wait.")
         end
+    end
+
+    -- Run the Azure Orb function if no special items were found
+    if next(notifiedSpecialItems) == nil then
+        useAzureOrb()
+        -- Confirm action in chat
+        wait(1.5)
+        local Plr = Players.LocalPlayer
+        require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("Confirm")
     end
 end
