@@ -1,0 +1,49 @@
+repeat wait() until game:IsLoaded()
+if game.PlaceId == 10228957718 then
+wait(2.5)
+repeat wait() until game:GetService("Players").LocalPlayer.Character:FindFirstChild("Equinox Slicer")
+local Player = game.Players.LocalPlayer
+getgenv().ALL = true -- true or false
+local function attackLoop()
+    while ALL do
+        wait()
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v.name == "Equinox Slicer" then
+v.Parent = game.Players.LocalPlayer.Character
+end
+end
+        for _, value in next, workspace:GetDescendants() do
+            -- Corrected the condition to use value instead of v
+            if value:FindFirstChildOfClass("Humanoid") and value ~= Player.Character then
+                local mouse = value:FindFirstChild("HumanoidRootPart") or value:FindFirstChild("Head")
+                if mouse then
+                    local args = {
+                        [1] = "hit",
+                        [2] = {
+                            [1] = Vector3.new(mouse.Position.X, mouse.Position.Y, mouse.Position.Z),
+                            [2] = 1,
+                            [3] = 2,
+                            [4] = -1
+                        }
+                    }
+                    
+                    -- Use pcall to catch any errors
+                    local success, err = pcall(function()
+                        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Equinox Slicer").RemoteFunction:InvokeServer(unpack(args))
+                    end)
+
+                    -- Optional: print the error if it occurs
+                    if not success then
+                        warn("Error in attackLoop: " .. err)
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- Start multiple coroutine loops
+for i = 1, 30 do
+    coroutine.wrap(attackLoop)()
+end
+end
