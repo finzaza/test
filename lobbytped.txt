@@ -1,0 +1,21 @@
+repeat wait() until game:IsLoaded()
+if game.PlaceId == 8811271345 then
+wait(5)
+if #game.Players:GetPlayers()>1 then
+game:GetService('Players').LocalPlayer:kick("player detected in server")
+end
+repeat wait() until game.Players.LocalPlayer.Backpack:FindFirstChild("Azure Orb")
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v.name == "Azure Orb" then
+v.Parent = game.Players.LocalPlayer.Character
+end
+end
+wait(1.5)
+repeat wait() until game:GetService("Workspace").mrkoonmtv:FindFirstChild("Azure Orb")
+game:GetService("Workspace").mrkoonmtv["Azure Orb"].RemoteEvent:FireServer()
+wait(1.5)
+local Players = game:GetService("Players");
+local Plr = Players.LocalPlayer;
+
+require(Plr.PlayerScripts.ChatScript.ChatMain).MessagePosted:fire("Confirm");
+end
